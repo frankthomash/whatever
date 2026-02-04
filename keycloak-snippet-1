@@ -1,0 +1,360 @@
+### FILE: src/main/java/de/swisslife/versandsteuerung/security/BenutzerService.java ###
+package de.swisslife.versandsteuerung.security;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+
+import java.util.Collection;
+
+public interface BenutzerService {
+
+    /**
+     * Ermittelt die Berechtigungen eines Benutzers über Legi/ESB.
+     *
+     * @param username Der Benutzername
+     * @return Collection der gewährten Authorities
+     */
+    Collection<GrantedAuthority> ermittleBerechtigungen(String username);
+
+    /**
+     * @deprecated Authentifizierung erfolgt über Keycloak
+     */
+    @Deprecated
+    User anmelden(String username, String password);
+}
+### END FILE ###
+
+### FILE: src/main/java/de/swisslife/versandsteuerung/security/BenutzerServiceImpl.java ###
+package de.swisslife.versandsteuerung.security;
+
+import de.swisslife.versandsteuerung.esbclient.LegiInfoServiceAdapter;
+import de.swisslife.versandsteuerung.exceptions.VersandsteuerungFehler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+/**
+ * Service für Benutzer-Autorisierung über Legi/ESB.
+ * Authentifizierung erfolgt jetzt über Keycloak.
+ */
+@Service
+public class BenutzerServiceImpl implements BenutzerService {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(BenutzerServiceImpl.class);
+
+    private final LegiInfoServiceAdapter legiInfoService;
+
+    public BenutzerServiceImpl(LegiInfoServiceAdapter legiInfoService) {
+        this.legiInfoService = legiInfoService;
+    }
+
+    /**
+     * Ermittelt die Berechtigungen (Authorities) eines bereits authentifizierten Benutzers
+     * durch Abfrage der Legi über den ESB.
+     *
+     * @param username Der Benutzername (aus Keycloak preferred_username)
+     * @return Liste der gewährten Authorities
+     */
+    @Override
+    public Collection<GrantedAuthority> ermittleBerechtigungen(String username) {
+        LOGGER.info("Ermittle Berechtigungen für Benutzer: {}", username);
+
+        List<GrantedAuthority> granted = new ArrayList<>();
+
+        for (Authority auth : Authority.values()) {
+            try {
+                if (legiInfoService.pruefeAttributRecht(username, auth.name()).isSuccess()) {
+                    LOGGER.debug("Benutzer {} wurde die Berechtigung {} gewährt.", username, auth.name());
+                    granted.add(new SimpleGrantedAuthority(auth.name()));
+                }
+            } catch (VersandsteuerungFehler fehler) {
+                LOGGER.warn("Fehler bei Berechtigungsprüfung für {} / {}: {}",
+                        username, auth.name(), fehler.getMessage());
+            }
+        }
+
+        if (granted.isEmpty()) {
+            LOGGER.warn("Benutzer {} hat keine Berechtigungen in Legi.", username);
+        }
+
+        return granted;
+    }
+
+    /**
+     * @deprecated Authentifizierung erfolgt jetzt über Keycloak.
+     * Diese Methode wird nicht mehr verwendet.
+     */
+    @Override
+    @Deprecated
+    public org.springframework.security.core.userdetails.User anmelden(String username, String password) {
+        throw new UnsupportedOperationException(
+                "Authentifizierung erfolgt über Keycloak. Diese Methode wird nicht mehr unterstützt.");
+    }
+}
+### END FILE ###
+
+### FILE: src/main/java/de/swisslife/versandsteuerung/security/KeycloakLegiUserService.java ###
+package de.swisslife.versandsteuerung.security;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserRequest;
+import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserService;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
+import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
+import org.springframework.security.oauth2.core.OAuth2Error;
+import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
+import org.springframework.stereotype.Service;
+
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+
+/**
+ * Custom OIDC User Service that:
+ * 1. Receives authenticated user from Keycloak
+ * 2. Queries Legi/ESB for user's authorities
+ * 3. Returns OidcUser with combined authorities
+ */
+@Service
+public class KeycloakLegiUserService implements OAuth2UserService<OidcUserRequest, OidcUser> {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(KeycloakLegiUserService.class);
+
+    private final OidcUserService delegate = new OidcUserService();
+    private final BenutzerService benutzerService;
+
+    public KeycloakLegiUserService(BenutzerService benutzerService) {
+        this.benutzerService = benutzerService;
+    }
+
+    @Override
+    public OidcUser loadUser(OidcUserRequest userRequest) throws OAuth2AuthenticationException {
+        // 1. Load user from Keycloak (authentication already done)
+        OidcUser oidcUser = delegate.loadUser(userRequest);
+
+        String username = oidcUser.getPreferredUsername();
+        LOGGER.info("Benutzer {} wurde über Keycloak authentifiziert. Lade Berechtigungen aus Legi.",
+                username);
+
+        // 2. Get authorities from Legi/ESB
+        Collection<GrantedAuthority> legiAuthorities;
+        try {
+            legiAuthorities = benutzerService.ermittleBerechtigungen(username);
+        } catch (Exception e) {
+            LOGGER.error("Fehler beim Laden der Legi-Berechtigungen für Benutzer {}: {}",
+                    username, e.getMessage(), e);
+            throw new OAuth2AuthenticationException(
+                    new OAuth2Error("legi_error", "Fehler beim Laden der Berechtigungen: " + e.getMessage(), null),
+                    e
+            );
+        }
+
+        // 3. Check if user has at least WEBUSER authority
+        boolean hasWebUser = legiAuthorities.stream()
+                .anyMatch(auth -> Authority.WEBUSER.name().equals(auth.getAuthority()));
+
+        if (!hasWebUser) {
+            LOGGER.warn("Benutzer {} hat keine WEBUSER-Berechtigung in Legi. Zugriff verweigert.", username);
+            throw new OAuth2AuthenticationException(
+                    new OAuth2Error("access_denied",
+                            "Sie haben keine Berechtigung für diese Anwendung. " +
+                            "Bitte wenden Sie sich an Ihren Administrator.",
+                            null)
+            );
+        }
+
+        // 4. Combine Keycloak authorities with Legi authorities
+        Set<GrantedAuthority> combinedAuthorities = new HashSet<>(oidcUser.getAuthorities());
+        combinedAuthorities.addAll(legiAuthorities);
+
+        LOGGER.info("Benutzer {} erfolgreich angemeldet mit Berechtigungen: {}", username, combinedAuthorities);
+
+        // 5. Return new OidcUser with combined authorities
+        return new DefaultOidcUser(
+                combinedAuthorities,
+                oidcUser.getIdToken(),
+                oidcUser.getUserInfo(),
+                "preferred_username"
+        );
+    }
+}
+### END FILE ###
+
+### FILE: src/main/java/de/swisslife/versandsteuerung/security/UiWebSecurityConfigurerAdapter.java ###
+package de.swisslife.versandsteuerung.security;
+
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.core.session.SessionRegistry;
+import org.springframework.security.core.session.SessionRegistryImpl;
+import org.springframework.security.oauth2.client.oidc.web.logout.OidcClientInitiatedLogoutSuccessHandler;
+import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
+import org.springframework.security.oauth2.client.web.DefaultOAuth2AuthorizationRequestResolver;
+import org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestCustomizers;
+import org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestResolver;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
+import org.springframework.security.web.servlet.util.matcher.PathPatternRequestMatcher;
+import org.springframework.security.web.util.matcher.OrRequestMatcher;
+import org.springframework.security.web.util.matcher.RequestMatcher;
+
+/**
+ * Security Konfiguration für die Weboberfläche (JSF / Keycloak SSO + Legi Autorisierung)
+ */
+@Configuration
+public class UiWebSecurityConfigurerAdapter {
+
+    public static final String SESSION_PARAM_LOGOUT = "logout";
+    public static final String SESSION_PARAM_ERROR = "error";
+
+    private final ClientRegistrationRepository clientRegistrationRepository;
+    private final KeycloakLegiUserService keycloakLegiUserService;
+
+    public UiWebSecurityConfigurerAdapter(
+            ClientRegistrationRepository clientRegistrationRepository,
+            KeycloakLegiUserService keycloakLegiUserService) {
+        this.clientRegistrationRepository = clientRegistrationRepository;
+        this.keycloakLegiUserService = keycloakLegiUserService;
+    }
+
+    @Bean
+    @Order(1)
+    public SessionRegistry sessionRegistry() {
+        return new SessionRegistryImpl();
+    }
+
+    @Bean(name = "uiSecurityFilterChain")
+    @Order(1)
+    SecurityFilterChain uiFilterChain(HttpSecurity http) throws Exception {
+
+        http.csrf(AbstractHttpConfigurer::disable);
+
+        http.sessionManagement(management -> management
+                .maximumSessions(-1)
+                .sessionRegistry(sessionRegistry()));
+
+        RequestMatcher uiRequests = new OrRequestMatcher(
+                PathRequest.toStaticResources().atCommonLocations(),
+                PathPatternRequestMatcher.withDefaults().matcher("/assets/**"),
+                PathPatternRequestMatcher.withDefaults().matcher("/styles/**"),
+                PathPatternRequestMatcher.withDefaults().matcher("/favicon.ico"),
+                PathPatternRequestMatcher.withDefaults().matcher("/jakarta.faces.resource/**"),
+                PathPatternRequestMatcher.withDefaults().matcher("/javax.faces.resource/**"),
+                PathPatternRequestMatcher.withDefaults().matcher("/"),
+                PathPatternRequestMatcher.withDefaults().matcher("/index.html"),
+                PathPatternRequestMatcher.withDefaults().matcher("/ui/**"),
+                // OAuth2 endpoints
+                PathPatternRequestMatcher.withDefaults().matcher("/login/**"),
+                PathPatternRequestMatcher.withDefaults().matcher("/oauth2/**")
+        );
+
+        http.securityMatcher(uiRequests)
+                .authorizeHttpRequests(req -> req
+                        // Static resources
+                        .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
+                        .requestMatchers("/assets/**", "/styles/**", "/favicon.ico").permitAll()
+                        .requestMatchers("/jakarta.faces.resource/**", "/javax.faces.resource/**").permitAll()
+
+                        // OAuth2 endpoints
+                        .requestMatchers("/login/**", "/oauth2/**").permitAll()
+
+                        // Public UI pages
+                        .requestMatchers("/", "/index.html", "/ui/error.xhtml").permitAll()
+
+                        // Protected UI - requires WEBUSER authority from Legi
+                        .requestMatchers("/ui/**").hasAuthority(Authority.WEBUSER.name())
+
+                        // Anything else
+                        .anyRequest().denyAll()
+                )
+
+                // OAuth2 Login with Keycloak + Legi authorization
+                .oauth2Login(oauth2 -> oauth2
+                        .authorizationEndpoint(authorization -> authorization
+                                .authorizationRequestResolver(pkceAuthorizationRequestResolver())
+                        )
+                        .userInfoEndpoint(userInfo -> userInfo
+                                .oidcUserService(keycloakLegiUserService)
+                        )
+                        .defaultSuccessUrl("/ui/regeln/regelnKollektiv.xhtml", true)
+                        .failureUrl("/ui/error.xhtml")
+                )
+
+                // Redirect unauthenticated users to Keycloak
+                .exceptionHandling(handling -> handling
+                        .authenticationEntryPoint((request, response, authException) ->
+                                response.sendRedirect(request.getContextPath() + "/oauth2/authorization/keycloak")
+                        )
+                )
+
+                // Logout from application and Keycloak
+                .logout(logout -> logout
+                        .logoutUrl("/ui/logout.xhtml")
+                        .logoutSuccessHandler(oidcLogoutSuccessHandler())
+                        .invalidateHttpSession(true)
+                        .clearAuthentication(true)
+                        .deleteCookies("JSESSIONID")
+                        .permitAll()
+                );
+
+        return http.build();
+    }
+
+    private OAuth2AuthorizationRequestResolver pkceAuthorizationRequestResolver() {
+        DefaultOAuth2AuthorizationRequestResolver resolver =
+                new DefaultOAuth2AuthorizationRequestResolver(
+                        clientRegistrationRepository,
+                        "/oauth2/authorization"
+                );
+        resolver.setAuthorizationRequestCustomizer(
+                OAuth2AuthorizationRequestCustomizers.withPkce()
+        );
+        return resolver;
+    }
+
+    private LogoutSuccessHandler oidcLogoutSuccessHandler() {
+        OidcClientInitiatedLogoutSuccessHandler handler =
+                new OidcClientInitiatedLogoutSuccessHandler(clientRegistrationRepository);
+        handler.setPostLogoutRedirectUri("{baseUrl}");
+        return handler;
+    }
+}
+### END FILE ###
+
+### FILE: src/main/java/de/swisslife/versandsteuerung/service/AuthenticationService.java ###
+package de.swisslife.versandsteuerung.service;
+
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
+import org.springframework.stereotype.Service;
+
+import java.util.Optional;
+
+/**
+ * Service to access information about the currently authenticated user.
+ */
+@Service
+public class AuthenticationService {
+
+    /**
+     * Get the currently authenticated OIDC user
+     */
+    public Optional<OidcUser> getCurrentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.getPrincipal() instanceof OidcUser oidcUser) {
+            return Optional.of(oidcUser);
+        }
