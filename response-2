@@ -1,0 +1,41 @@
+package de.swisslife.versandsteuerung.security;
+
+import org.springframework.context.event.EventListener;
+import org.springframework.security.authentication.event.AbstractAuthenticationFailureEvent;
+import org.springframework.security.authentication.event.AuthenticationSuccessEvent;
+import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
+import org.springframework.stereotype.Component;
+
+@Component
+public class OAuth2AuthenticationEventListener {
+
+    @EventListener
+    public void onSuccess(AuthenticationSuccessEvent event) {
+        System.out.println("========== AUTH SUCCESS ==========");
+        System.out.println("Principal: " + event.getAuthentication().getName());
+        System.out.println("Authorities: " + event.getAuthentication().getAuthorities());
+        System.out.println("==================================");
+    }
+
+    @EventListener
+    public void onFailure(AbstractAuthenticationFailureEvent event) {
+        System.out.println("========== AUTH FAILURE ==========");
+        System.out.println("Exception: " + event.getException().getClass().getName());
+        System.out.println("Message: " + event.getException().getMessage());
+        
+        Throwable cause = event.getException().getCause();
+        if (cause != null) {
+            System.out.println("Cause: " + cause.getClass().getName());
+            System.out.println("Cause Message: " + cause.getMessage());
+            cause.printStackTrace();
+        }
+        
+        if (event.getException() instanceof OAuth2AuthenticationException oauth2Ex) {
+            System.out.println("OAuth2 Error Code: " + oauth2Ex.getError().getErrorCode());
+            System.out.println("OAuth2 Error Desc: " + oauth2Ex.getError().getDescription());
+            System.out.println("OAuth2 Error URI: " + oauth2Ex.getError().getUri());
+        }
+        
+        System.out.println("==================================");
+    }
+}
