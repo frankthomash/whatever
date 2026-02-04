@@ -1,0 +1,195 @@
+04.02.2026 18:25:18.241 INFO <Versandsteuerung> de.swisslife.versandsteuerung.VersandsteuerungApplication.logStarting(53) Starting VersandsteuerungApplication using Java 17 with PID 20292 (X:\repos\versandsteuerung\versandsteuerung-server\target\classes started by heimbaef in X:\repos\versandsteuerung)
+04.02.2026 18:25:18.241 INFO <Versandsteuerung> de.swisslife.versandsteuerung.VersandsteuerungApplication.logStartupProfileInfo(658) The following 1 profile is active: "logback-console"
+04.02.2026 18:25:19.722 INFO <Versandsteuerung> org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(145) Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+04.02.2026 18:25:19.853 INFO <Versandsteuerung> org.springframework.data.repository.config.RepositoryConfigurationDelegate.registerRepositoriesIn(213) Finished Spring Data repository scanning in 118 ms. Found 9 JPA repository interfaces.
+04.02.2026 18:25:20.634 INFO <Versandsteuerung> org.springframework.boot.web.embedded.tomcat.TomcatWebServer.initialize(111) Tomcat initialized with port 8100 (http)
+04.02.2026 18:25:20.742 INFO <Versandsteuerung> org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.prepareWebApplicationContext(301) Root WebApplicationContext: initialization completed in 2447 ms
+04.02.2026 18:25:20.824 INFO <Versandsteuerung> org.springframework.xml.xsd.commons.CommonsXsdSchemaCollection.afterPropertiesSet(154) Loaded class path resource [xsd/versandinfo.xsd],class path resource [xsd/versandinfoservice-rest.xsd]
+04.02.2026 18:25:20.915 INFO <Versandsteuerung> org.springframework.xml.xsd.commons.CommonsXsdSchemaCollection.afterPropertiesSet(154) Loaded class path resource [xsd/versandkonfiguration.xsd],class path resource [xsd/versandkonfigurationservice-rest.xsd]
+04.02.2026 18:25:22.522 INFO <Versandsteuerung> org.springframework.orm.jpa.persistenceunit.SpringPersistenceUnitInfo.addTransformer(87) No LoadTimeWeaver setup: ignoring JPA class transformer
+04.02.2026 18:25:22.544 WARN <Versandsteuerung> org.hibernate.orm.deprecation.allowJdbcMetadataAccess(241) HHH90000021: Encountered deprecated setting [hibernate.temp.use_jdbc_metadata_defaults], use [hibernate.boot.allow_jdbc_metadata_access] instead
+04.02.2026 18:25:22.584 WARN <Versandsteuerung> org.hibernate.orm.deprecation.constructDialect(153) HHH90000025: OracleDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+04.02.2026 18:25:24.181 INFO <Versandsteuerung> org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.buildNativeEntityManagerFactory(447) Initialized JPA EntityManagerFactory for persistence unit 'default'
+04.02.2026 18:25:24.380 DEBUG <Versandsteuerung> org.springframework.web.client.RestTemplate.debug(127) HTTP GET https://auth.sl-vu-dev.cloud/auth/realms/sldnettst/.well-known/openid-configuration
+04.02.2026 18:25:24.406 DEBUG <Versandsteuerung> org.springframework.web.client.RestTemplate.debug(127) Accept=[application/json, application/*+json]
+04.02.2026 18:25:24.606 DEBUG <Versandsteuerung> org.springframework.web.client.RestTemplate.debug(127) Response 200 OK
+04.02.2026 18:25:24.607 DEBUG <Versandsteuerung> org.springframework.web.client.RestTemplate.debug(127) Reading to [java.util.Map<java.lang.String, java.lang.Object>]
+04.02.2026 18:25:25.009 INFO <Versandsteuerung> org.springframework.data.jpa.repository.query.QueryEnhancerFactory.<clinit>(49) Hibernate is in classpath; If applicable, HQL parser will be used.
+04.02.2026 18:25:26.582 WARN <Versandsteuerung> org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration.openEntityManagerInViewInterceptor(258) spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+04.02.2026 18:25:26.738 INFO <Versandsteuerung> org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping.<init>(59) Adding welcome page: class path resource [META-INF/resources/index.html]
+04.02.2026 18:25:27.050 INFO <Versandsteuerung> org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver.<init>(60) Exposing 15 endpoints beneath base path '/actuator'
+04.02.2026 18:25:27.163 DEBUG <Versandsteuerung> org.springframework.security.web.DefaultSecurityFilterChain.<init>(72) Will secure Or [Or [PathPattern [/actuator/**]], PathPattern [/rest/**], PathPattern [/soap/**]] with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, LogoutFilter, BasicAuthenticationFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+04.02.2026 18:25:27.186 WARN <Versandsteuerung> org.springframework.security.config.annotation.web.configurers.AuthorizeHttpRequestsConfigurer$AuthorizationManagerRequestMatcherRegistry.requestMatchers(203) One of the patterns in [/login/*, oauth2/*] is missing a leading slash. This is discouraged; please include the leading slash in all your request matcher patterns. In future versions of Spring Security, leaving out the leading slash will result in an exception.
+04.02.2026 18:25:27.310 DEBUG <Versandsteuerung> org.springframework.security.web.DefaultSecurityFilterChain.<init>(72) Will secure Or [org.springframework.boot.autoconfigure.security.servlet.StaticResourceRequest$StaticResourceRequestMatcher@442b400, PathPattern [/assets/**], PathPattern [/styles/**], PathPattern [/favicon.ico], PathPattern [/jakarta.faces.resource/**], PathPattern [/javax.faces.resource/**], PathPattern [/], PathPattern [/index.html], PathPattern [/ui/**], PathPattern [/login/**], PathPattern [/oauth2/**]] with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, LogoutFilter, OAuth2AuthorizationRequestRedirectFilter, OAuth2LoginAuthenticationFilter, ConcurrentSessionFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+04.02.2026 18:25:27.381 INFO <Versandsteuerung> org.springframework.xml.xsd.commons.CommonsXsdSchemaCollection.afterPropertiesSet(154) Loaded class path resource [xsd/versandinfo.xsd],class path resource [xsd/versandinfoservice-soap.xsd]
+04.02.2026 18:25:27.403 INFO <Versandsteuerung> org.springframework.xml.xsd.commons.CommonsXsdSchemaCollection.afterPropertiesSet(154) Loaded class path resource [xsd/versandkonfiguration.xsd],class path resource [xsd/versandkonfigurationservice-soap.xsd]
+04.02.2026 18:25:27.453 INFO <Versandsteuerung> org.springframework.ws.soap.addressing.server.AnnotationActionEndpointMapping.afterPropertiesSet(244) Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+04.02.2026 18:25:27.488 INFO <Versandsteuerung> org.springframework.xml.xsd.commons.CommonsXsdSchemaCollection.afterPropertiesSet(154) Loaded class path resource [xsd/versandinfoservice-soap.xsd]
+04.02.2026 18:25:27.495 INFO <Versandsteuerung> org.springframework.xml.xsd.commons.CommonsXsdSchemaCollection.afterPropertiesSet(154) Loaded class path resource [xsd/versandkonfigurationservice-soap.xsd]
+04.02.2026 18:25:27.989 INFO <Versandsteuerung> org.springframework.ws.transport.http.MessageDispatcherServlet.initServletBean(532) Initializing Servlet 'messageDispatcherServlet'
+04.02.2026 18:25:27.997 INFO <Versandsteuerung> org.springframework.ws.soap.saaj.SaajSoapMessageFactory.afterPropertiesSet(147) Creating SAAJ 1.3 MessageFactory with SOAP 1.1 Protocol
+04.02.2026 18:25:28.018 INFO <Versandsteuerung> org.springframework.ws.transport.http.MessageDispatcherServlet.initServletBean(554) Completed initialization in 29 ms
+04.02.2026 18:25:28.019 INFO <Versandsteuerung> org.springframework.boot.web.embedded.tomcat.TomcatWebServer.start(243) Tomcat started on port 8100 (http) with context path '/'
+04.02.2026 18:25:28.038 INFO <Versandsteuerung> de.swisslife.versandsteuerung.VersandsteuerungApplication.logStarted(59) Started VersandsteuerungApplication in 10.536 seconds (process running for 11.416)
+04.02.2026 18:25:36.600 DEBUG <Versandsteuerung> org.springframework.security.web.FilterChainProxy.doFilterInternal(223) Securing GET /ui/login.xhtml
+04.02.2026 18:25:36.618 TRACE <Versandsteuerung> org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter.requiresAuthentication(283) Did not match request to Ant [pattern='/login/oauth2/code/*']
+04.02.2026 18:25:36.621 DEBUG <Versandsteuerung> org.springframework.security.web.authentication.AnonymousAuthenticationFilter.defaultWithAnonymous(119) Set SecurityContextHolder to anonymous SecurityContext
+04.02.2026 18:25:36.621 DEBUG <Versandsteuerung> org.springframework.security.web.session.SessionManagementFilter.doFilter(121) Request requested invalid session id 64AE900C98DD4EC3C6FA2EA213F6BE07
+04.02.2026 18:25:36.632 DEBUG <Versandsteuerung> org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(227) Secured GET /ui/login.xhtml
+04.02.2026 18:25:37.376 INFO <Versandsteuerung> org.springframework.web.servlet.DispatcherServlet.initServletBean(532) Initializing Servlet 'dispatcherServlet'
+04.02.2026 18:25:37.378 INFO <Versandsteuerung> org.springframework.web.servlet.DispatcherServlet.initServletBean(554) Completed initialization in 2 ms
+04.02.2026 18:25:37.381 DEBUG <Versandsteuerung> org.springframework.security.web.FilterChainProxy.doFilterInternal(223) Securing GET /favicon.ico
+04.02.2026 18:25:37.381 TRACE <Versandsteuerung> org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter.requiresAuthentication(283) Did not match request to Ant [pattern='/login/oauth2/code/*']
+04.02.2026 18:25:37.383 DEBUG <Versandsteuerung> org.springframework.security.web.authentication.AnonymousAuthenticationFilter.defaultWithAnonymous(119) Set SecurityContextHolder to anonymous SecurityContext
+04.02.2026 18:25:37.383 DEBUG <Versandsteuerung> org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(227) Secured GET /favicon.ico
+04.02.2026 18:25:42.379 DEBUG <Versandsteuerung> org.springframework.security.web.FilterChainProxy.doFilterInternal(223) Securing GET /
+04.02.2026 18:25:42.380 TRACE <Versandsteuerung> org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter.requiresAuthentication(283) Did not match request to Ant [pattern='/login/oauth2/code/*']
+04.02.2026 18:25:42.382 DEBUG <Versandsteuerung> org.springframework.security.web.authentication.AnonymousAuthenticationFilter.defaultWithAnonymous(119) Set SecurityContextHolder to anonymous SecurityContext
+04.02.2026 18:25:42.383 DEBUG <Versandsteuerung> org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(227) Secured GET /
+04.02.2026 18:25:42.402 DEBUG <Versandsteuerung> org.springframework.security.web.FilterChainProxy.doFilterInternal(223) Securing GET /index.html
+04.02.2026 18:25:42.404 TRACE <Versandsteuerung> org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter.requiresAuthentication(283) Did not match request to Ant [pattern='/login/oauth2/code/*']
+04.02.2026 18:25:42.407 DEBUG <Versandsteuerung> org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(227) Secured GET /index.html
+04.02.2026 18:25:42.444 DEBUG <Versandsteuerung> org.springframework.security.web.FilterChainProxy.doFilterInternal(223) Securing GET /favicon.ico
+04.02.2026 18:25:42.444 DEBUG <Versandsteuerung> org.springframework.security.web.FilterChainProxy.doFilterInternal(223) Securing GET /ui/regeln/regelnKollektiv.xhtml
+04.02.2026 18:25:42.444 TRACE <Versandsteuerung> org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter.requiresAuthentication(283) Did not match request to Ant [pattern='/login/oauth2/code/*']
+04.02.2026 18:25:42.444 DEBUG <Versandsteuerung> org.springframework.security.web.authentication.AnonymousAuthenticationFilter.defaultWithAnonymous(119) Set SecurityContextHolder to anonymous SecurityContext
+04.02.2026 18:25:42.446 DEBUG <Versandsteuerung> org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(227) Secured GET /favicon.ico
+04.02.2026 18:25:42.446 TRACE <Versandsteuerung> org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter.requiresAuthentication(283) Did not match request to Ant [pattern='/login/oauth2/code/*']
+04.02.2026 18:25:42.446 DEBUG <Versandsteuerung> org.springframework.security.web.authentication.AnonymousAuthenticationFilter.defaultWithAnonymous(119) Set SecurityContextHolder to anonymous SecurityContext
+04.02.2026 18:25:42.459 DEBUG <Versandsteuerung> org.springframework.security.web.savedrequest.HttpSessionRequestCache.saveRequest(80) Saved request http://localhost:8100/ui/regeln/regelnKollektiv.xhtml?continue to session
+04.02.2026 18:25:42.467 DEBUG <Versandsteuerung> org.springframework.security.web.FilterChainProxy.doFilterInternal(223) Securing GET /oauth2/authorization/keycloak
+04.02.2026 18:25:42.474 DEBUG <Versandsteuerung> org.springframework.security.web.DefaultRedirectStrategy.sendRedirect(61) Redirecting to https://auth.sl-vu-dev.cloud/auth/realms/sldnettst/protocol/openid-connect/auth?response_type=code&client_id=versandsteuerung&scope=openid&state=Q1Cm_Ia7DTw_IOBzVpHHn4WjlL-T_eP_wMNk__VLhSU%3D&redirect_uri=http://localhost:8100/login/oauth2/code/keycloak&nonce=MeeGpMSwLL3SY940lHA-Xo9A2DvieV3qFO7Jt8k2aE4&code_challenge=-X35sLdIMO07EH8KzObBTJ8EDCe3GPXv4X2skLmF-v0&code_challenge_method=S256
+04.02.2026 18:25:42.670 DEBUG <Versandsteuerung> org.springframework.security.web.FilterChainProxy.doFilterInternal(223) Securing GET /login/oauth2/code/keycloak?state=Q1Cm_Ia7DTw_IOBzVpHHn4WjlL-T_eP_wMNk__VLhSU%3D&session_state=bc9c7665-5577-e58d-7172-0c22a2648ebd&iss=https%3A%2F%2Fauth.sl-vu-dev.cloud%2Fauth%2Frealms%2Fsldnettst&code=20252da6-948d-7589-1747-0c278aa48298.bc9c7665-5577-e58d-7172-0c22a2648ebd.sldnettst_versandsteuerung
+04.02.2026 18:25:42.676 DEBUG <Versandsteuerung> org.springframework.web.client.RestTemplate.debug(127) HTTP POST https://auth.sl-vu-dev.cloud/auth/realms/sldnettst/protocol/openid-connect/token
+04.02.2026 18:25:42.676 DEBUG <Versandsteuerung> org.springframework.web.client.RestTemplate.debug(127) Accept=[application/json, application/*+json]
+04.02.2026 18:25:42.678 DEBUG <Versandsteuerung> org.springframework.web.client.RestTemplate.debug(127) Writing [{grant_type=[authorization_code], code=[20252da6-948d-7589-1747-0c278aa48298.bc9c7665-5577-e58d-7172-0c22a2648ebd.sldnettst_versandsteuerung], redirect_uri=[http://localhost:8100/login/oauth2/code/keycloak], client_id=[versandsteuerung], client_secret=[TODO], code_verifier=[aLdvtGtbTHszBd_IkRGkvGSU1yIoZYup-WfpoNR_z7oPDknp9zPCauWXFUBD2XKH63fm1b0uRFONilVMgVMBG3Kmg8icuGdrwiUlRkSg3r_Dyy1PeItKVMsP0BHTcp-a]}] as "application/x-www-form-urlencoded;charset=UTF-8"
+04.02.2026 18:25:42.705 DEBUG <Versandsteuerung> org.springframework.web.client.RestTemplate.debug(127) Response 401 UNAUTHORIZED
+04.02.2026 18:25:42.714 DEBUG <Versandsteuerung> org.springframework.security.authentication.ProviderManager.authenticate(206) Authentication failed with provider OidcAuthorizationCodeAuthenticationProvider since [invalid_token_response] An error occurred while attempting to retrieve the OAuth 2.0 Access Token Response: 401 Unauthorized: [no body]
+========== AUTH FAILURE ==========
+Exception: org.springframework.security.authentication.ProviderNotFoundException
+Message: No AuthenticationProvider found for org.springframework.security.oauth2.client.authentication.OAuth2LoginAuthenticationToken
+==================================
+04.02.2026 18:25:42.716 DEBUG <Versandsteuerung> org.springframework.security.authentication.DefaultAuthenticationEventPublisher.publishAuthenticationFailure(121) No event was found for the exception org.springframework.security.oauth2.core.OAuth2AuthenticationException
+04.02.2026 18:25:42.718 DEBUG <Versandsteuerung> org.springframework.security.authentication.ProviderManager.authenticate(261) Denying authentication since all attempted providers failed
+04.02.2026 18:25:42.718 TRACE <Versandsteuerung> org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter.unsuccessfulAuthentication(372) Failed to process authentication request
+org.springframework.security.oauth2.core.OAuth2AuthenticationException: [invalid_token_response] An error occurred while attempting to retrieve the OAuth 2.0 Access Token Response: 401 Unauthorized: [no body]
+	at org.springframework.security.oauth2.client.oidc.authentication.OidcAuthorizationCodeAuthenticationProvider.getResponse(OidcAuthorizationCodeAuthenticationProvider.java:178)
+	at org.springframework.security.oauth2.client.oidc.authentication.OidcAuthorizationCodeAuthenticationProvider.authenticate(OidcAuthorizationCodeAuthenticationProvider.java:146)
+	at org.springframework.security.authentication.ProviderManager.authenticate(ProviderManager.java:182)
+	at org.springframework.security.authentication.ObservationAuthenticationManager.lambda$authenticate$1(ObservationAuthenticationManager.java:54)
+	at io.micrometer.observation.Observation.observe(Observation.java:564)
+	at org.springframework.security.authentication.ObservationAuthenticationManager.authenticate(ObservationAuthenticationManager.java:53)
+	at org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter.attemptAuthentication(OAuth2LoginAuthenticationFilter.java:200)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:239)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:229)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:241)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:228)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:138)
+	at org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter.doFilterInternal(OAuth2AuthorizationRequestRedirectFilter.java:198)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:241)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:228)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:138)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:241)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:228)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:138)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:241)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:228)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:138)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:241)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:228)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:138)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:241)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:228)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:138)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:241)
+	at org.springframework.security.web.ObservationFilterChainDecorator$AroundFilterObservation$SimpleAroundFilterObservation.lambda$wrap$0(ObservationFilterChainDecorator.java:334)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:225)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:138)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.ServletRequestPathFilter.doFilter(ServletRequestPathFilter.java:52)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)
+	at org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebSecurityConfiguration.java:319)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$4(HandlerMappingIntrospector.java:267)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)
+	at org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:240)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:362)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:278)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.ServerHttpObservationFilter.doFilterInternal(ServerHttpObservationFilter.java:110)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:116)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:398)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:903)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1776)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:975)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:493)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Caused by: org.springframework.security.oauth2.core.OAuth2AuthorizationException: [invalid_token_response] An error occurred while attempting to retrieve the OAuth 2.0 Access Token Response: 401 Unauthorized: [no body]
+	at org.springframework.security.oauth2.client.endpoint.DefaultAuthorizationCodeTokenResponseClient.getResponse(DefaultAuthorizationCodeTokenResponseClient.java:101)
+	at org.springframework.security.oauth2.client.endpoint.DefaultAuthorizationCodeTokenResponseClient.getTokenResponse(DefaultAuthorizationCodeTokenResponseClient.java:80)
+	at org.springframework.security.oauth2.client.endpoint.DefaultAuthorizationCodeTokenResponseClient.getTokenResponse(DefaultAuthorizationCodeTokenResponseClient.java:57)
+	at org.springframework.security.oauth2.client.oidc.authentication.OidcAuthorizationCodeAuthenticationProvider.getResponse(OidcAuthorizationCodeAuthenticationProvider.java:172)
+	... 91 common frames omitted
+Caused by: org.springframework.web.client.HttpClientErrorException$Unauthorized: 401 Unauthorized: [no body]
+	at org.springframework.web.client.HttpClientErrorException.create(HttpClientErrorException.java:106)
+	at org.springframework.web.client.DefaultResponseErrorHandler.handleError(DefaultResponseErrorHandler.java:186)
+	at org.springframework.web.client.DefaultResponseErrorHandler.handleError(DefaultResponseErrorHandler.java:161)
+	at org.springframework.security.oauth2.client.http.OAuth2ErrorResponseErrorHandler.handleError(OAuth2ErrorResponseErrorHandler.java:58)
+	at org.springframework.web.client.ResponseErrorHandler.handleError(ResponseErrorHandler.java:58)
+	at org.springframework.web.client.RestTemplate.handleResponse(RestTemplate.java:953)
+	at org.springframework.web.client.RestTemplate.doExecute(RestTemplate.java:902)
+	at org.springframework.web.client.RestTemplate.exchange(RestTemplate.java:741)
+	at org.springframework.security.oauth2.client.endpoint.DefaultAuthorizationCodeTokenResponseClient.getResponse(DefaultAuthorizationCodeTokenResponseClient.java:94)
+	... 94 common frames omitted
+04.02.2026 18:25:42.721 TRACE <Versandsteuerung> org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter.unsuccessfulAuthentication(373) Cleared SecurityContextHolder
+04.02.2026 18:25:42.721 TRACE <Versandsteuerung> org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter.unsuccessfulAuthentication(374) Handling authentication failure
+04.02.2026 18:25:42.721 DEBUG <Versandsteuerung> org.springframework.security.web.DefaultRedirectStrategy.sendRedirect(61) Redirecting to /ui/error.xhtml
+04.02.2026 18:25:42.728 DEBUG <Versandsteuerung> org.springframework.security.web.FilterChainProxy.doFilterInternal(223) Securing GET /ui/error.xhtml
+04.02.2026 18:25:42.728 TRACE <Versandsteuerung> org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter.requiresAuthentication(283) Did not match request to Ant [pattern='/login/oauth2/code/*']
+04.02.2026 18:25:42.729 DEBUG <Versandsteuerung> org.springframework.security.web.authentication.AnonymousAuthenticationFilter.defaultWithAnonymous(119) Set SecurityContextHolder to anonymous SecurityContext
+04.02.2026 18:25:42.730 DEBUG <Versandsteuerung> org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(227) Secured GET /ui/error.xhtml
+04.02.2026 18:25:42.774 DEBUG <Versandsteuerung> org.springframework.security.web.FilterChainProxy.doFilterInternal(223) Securing GET /favicon.ico
+04.02.2026 18:25:42.776 TRACE <Versandsteuerung> org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter.requiresAuthentication(283) Did not match request to Ant [pattern='/login/oauth2/code/*']
+04.02.2026 18:25:42.776 DEBUG <Versandsteuerung> org.springframework.security.web.authentication.AnonymousAuthenticationFilter.defaultWithAnonymous(119) Set SecurityContextHolder to anonymous SecurityContext
+04.02.2026 18:25:42.777 DEBUG <Versandsteuerung> org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(227) Secured GET /favicon.ico
